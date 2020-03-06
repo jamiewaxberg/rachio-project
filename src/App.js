@@ -1,24 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import './App.scss';
+import DevicesList from './components/DevicesList.js'
+import ZonesList from './components/ZonesList.js'
+
+const apiUrl = 'https://api.rach.io/1/public/person';
+const token = '76980330-8f0b-4659-a341-527364acf134';
+
+let headers = new Headers();
+headers.set('Authorization', `Bearer ${token}`)
 
 function App() {
+  const [personId, setPersonId] = useState('');
+  const [personInfo, setPersonInfo] = useState({});
+
+  const [selectedDevice, setSelectedDevice] = useState();
+
+
+  // get person ID
+  useEffect(() => {
+    fetch(`${apiUrl}/info`, {method: 'GET', headers})
+      .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // console.log(data)
+          setPersonId(data);
+        });
+  }, []);
+
+  // get person info once ID is set
+  useEffect(() => {
+    fetch(`${apiUrl}/${personId.id}`, {method: 'GET', headers})
+      .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setPersonInfo(data);
+        });
+  }, [personId]);
+
+  function renderDashboard() {
+    console.log(selectedDevice)
+    if (!selectedDevice) {
+      return <DevicesList personInfo={personInfo} setSelectedDevice={setSelectedDevice} />
+    } else {
+      return <ZonesList selectedDevice={selectedDevice} setSelectedDevice={setSelectedDevice} />
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*<DevicesList personInfo={personInfo} setSelectedDevice={setSelectedDevice} />*/}
+      {renderDashboard()}
     </div>
   );
 }

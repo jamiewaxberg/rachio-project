@@ -1,0 +1,9 @@
+@import './components/DevicesList.scss';
+@import './components/DeviceCard.scss';
+@import './components/ZonesList.scss';
+
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
