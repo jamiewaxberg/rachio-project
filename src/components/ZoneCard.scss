@@ -1,0 +1,14 @@
+.zoneCard {
+	padding: 1em;
+  flex-basis: 5em;
+  border: 1px solid #ccc;
+  margin: 0 1em 1em 0;
+  cursor: pointer;
+  text-align: center;
+
+	input {
+		font-size: 1em;
+		margin: 10px 0;
+		max-width: 6em;
+	}
+}

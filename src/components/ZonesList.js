@@ -1,7 +1,15 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import DeviceCard from './DeviceCard.js'
+import {apiUrl, createAuthHeader} from '../App.js';
+import ZoneCard from './ZoneCard.js';
 
 function ZonesList({selectedDevice, setSelectedDevice}) {
+
+	createAuthHeader();
+
+	const singleZoneApiUrl = `${apiUrl}/public/zone/start`;
+	const multiZoneApiUrl = `${apiUrl}/public/zone/start_multiple`;
+
+	
 
 	return (
 		<Fragment>
@@ -15,7 +23,7 @@ function ZonesList({selectedDevice, setSelectedDevice}) {
 						name, id
 					} = zone;
 					return (
-						<li key={id}>{name}</li>
+						<ZoneCard key={id} name={name} id={id} />
 					);
 				}) : null}
 			</ul>
