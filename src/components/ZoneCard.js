@@ -1,23 +1,18 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import {apiUrl, createAuthHeader} from '../App.js';
+import React, { useState, Fragment } from 'react';
+import {createAuthHeader} from '../App.js';
+import {zoneApiUrl} from './ZonesList.js'
 
 function ZoneCard({id, name}) {
-	createAuthHeader();
-	const singleZoneApiUrl = `${apiUrl}/public/zone/start/`;
+	const singleZoneApiUrl = `${zoneApiUrl}/start`;
 
 	const [duration, setDuration] = useState(0);
 	const [startingZone, setStartingZone] = useState(false);
 
-	function startSingleZone(id) {
-		// singleZoneApiUrl.put({
-		// 	headers: createAuthHeader(),
-		// 	id: zoneId,
-		// 	duration: 2,
-		// })
-    fetch(singleZoneApiUrl, {method: 'PUT', headers: createAuthHeader(), body: {
+	function startSingleZone() {
+    fetch(singleZoneApiUrl, {method: 'PUT', headers: createAuthHeader(), body: JSON.stringify({
 	    	id,
 	    	duration,
-	    }
+	    })
     })
 	}
 
@@ -26,7 +21,7 @@ function ZoneCard({id, name}) {
 	}
 
 	function startClickHandler() {
-		startSingleZone(id);
+		startSingleZone();
 		setStartingZone(false);
 	}
 

@@ -6,7 +6,7 @@ function DeviceCard({device, setSelectedDevice}) {
 	} = device;
 
 	return (
-		<div className="deviceCard" onClick={() => setSelectedDevice(device)}>
+		<div className="deviceCard" data-testid="deviceCard" onClick={() => setSelectedDevice(device)}>
       <span>{name}</span>
     </div>
 	);

@@ -3,7 +3,7 @@ import './App.scss';
 import DevicesList from './components/DevicesList.js'
 import ZonesList from './components/ZonesList.js'
 
-export const apiUrl = 'https://api.rach.io/1/public/person';
+const personApiUrl = 'https://api.rach.io/1/public/person';
 export const token = '76980330-8f0b-4659-a341-527364acf134';
 
 export function createAuthHeader() {
@@ -21,19 +21,18 @@ function App() {
 
   // get person ID
   useEffect(() => {
-    fetch(`${apiUrl}/info`, {method: 'GET', headers: createAuthHeader()})
+    fetch(`${personApiUrl}/info`, {method: 'GET', headers: createAuthHeader()})
       .then((response) => {
           return response.json();
         })
         .then((data) => {
-          // console.log(data)
           setPersonId(data);
         });
   }, []);
 
   // get person info once ID is set
   useEffect(() => {
-    fetch(`${apiUrl}/${personId.id}`, {method: 'GET', headers: createAuthHeader()})
+    fetch(`${personApiUrl}/${personId.id}`, {method: 'GET', headers: createAuthHeader()})
       .then((response) => {
           return response.json();
         })

@@ -1,20 +1,32 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import {apiUrl, createAuthHeader} from '../App.js';
+import {createAuthHeader} from '../App.js';
 import ZoneCard from './ZoneCard.js';
+
+export const zoneApiUrl = 'https://api.rach.io/1/public/zone';
 
 function ZonesList({selectedDevice, setSelectedDevice}) {
 
-	createAuthHeader();
+	const multiZoneApiUrl = `${zoneApiUrl}/start_multiple`;
 
-	const singleZoneApiUrl = `${apiUrl}/public/zone/start`;
-	const multiZoneApiUrl = `${apiUrl}/public/zone/start_multiple`;
+	function createApiCallBody() {
+		const requestBody = selectedDevice.zones.map(zone => {
+			return {
+				id: zone.id,
+				sortOrder: 1
+			}
+		})
+		console.log(requestBody)
+	}
 
-	
+	function startAllZones() {
+		fetch(multiZoneApiUrl, {method: 'PUT', headers: createAuthHeader(), body: JSON.stringify(createApiCallBody())
+    })
+	}
 
 	return (
 		<Fragment>
 			<h1>Zones</h1>
-			<div className="allZonesButton">
+			<div className="allZonesButton" onClick={startAllZones}>
 				<span>Run All Zones</span>
 			</div>
 			<ul className="zonesList">
