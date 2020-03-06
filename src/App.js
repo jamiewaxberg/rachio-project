@@ -41,8 +41,8 @@ function App() {
         });
   }, [personId]);
 
+  // render either devices or zones view depending on whether a device was selected
   function renderDashboard() {
-    console.log(selectedDevice)
     if (!selectedDevice) {
       return <DevicesList personInfo={personInfo} setSelectedDevice={setSelectedDevice} />
     } else {
@@ -52,7 +52,6 @@ function App() {
 
   return (
     <div className="App">
-      {/*<DevicesList personInfo={personInfo} setSelectedDevice={setSelectedDevice} />*/}
       {renderDashboard()}
     </div>
   );

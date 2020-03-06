@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import {createAuthHeader} from '../App.js';
 import ZoneCard from './ZoneCard.js';
 
@@ -8,6 +8,7 @@ function ZonesList({selectedDevice, setSelectedDevice}) {
 
 	const multiZoneApiUrl = `${zoneApiUrl}/start_multiple`;
 
+	// create array of all zone IDs to include in request body
 	function createApiCallBody() {
 		const requestBody = selectedDevice.zones.map(zone => {
 			return {
@@ -15,12 +16,12 @@ function ZonesList({selectedDevice, setSelectedDevice}) {
 				sortOrder: 1
 			}
 		})
-		console.log(requestBody)
+		return requestBody;
 	}
 
+	// API request attemp (not working)
 	function startAllZones() {
-		fetch(multiZoneApiUrl, {method: 'PUT', headers: createAuthHeader(), body: JSON.stringify(createApiCallBody())
-    })
+		fetch(multiZoneApiUrl, {method: 'PUT', headers: createAuthHeader(), body: JSON.stringify(createApiCallBody())})
 	}
 
 	return (

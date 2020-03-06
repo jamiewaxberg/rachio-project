@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import DeviceCard from './DeviceCard.js'
 
 function DevicesList({personInfo, setSelectedDevice}) {
